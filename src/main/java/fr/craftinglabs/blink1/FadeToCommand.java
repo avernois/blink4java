@@ -4,10 +4,6 @@ public class FadeToCommand extends WriteCommand {
 
     public static final byte FADE_TO = (byte) 'c';
 
-    public FadeToCommand(RGBColor rgbColor, int fadeTime) {
-        this(rgbColor, fadeTime, BlinkLeds.ALL_LEDS);
-    }
-
     public FadeToCommand(RGBColor rgbColor, int fadeTime, BlinkLeds led) {
     	command[1] = FADE_TO;
         command[2] = rgbColor.redAsByte();

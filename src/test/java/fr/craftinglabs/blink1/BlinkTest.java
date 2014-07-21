@@ -15,7 +15,7 @@ public class BlinkTest {
 
 	@Test public void
     shouldSendFadeCommand() throws Exception {
-        FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000);
+        FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLeds.ALL_LEDS);
 
         blink.fadeToColor(new RGBColor(0, 0, 0), 2000);
 
@@ -35,7 +35,7 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommand() throws Exception {
-        WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0));
+        WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS);
 
         blink.setColor(new RGBColor(0, 0, 0));
 

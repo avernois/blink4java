@@ -4,10 +4,6 @@ public class SetColorCommand extends WriteCommand {
 
     private static final byte SET_COLOR = (byte) 'n';
 
-	public SetColorCommand(RGBColor rgbColor) {
-        this(rgbColor, BlinkLeds.ALL_LEDS);
-    }
-
 	public SetColorCommand(RGBColor rgbColor, BlinkLeds led) {
 		command[1] = SET_COLOR;
         command[2] = rgbColor.redAsByte();
