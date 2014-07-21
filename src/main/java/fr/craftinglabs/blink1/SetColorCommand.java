@@ -1,14 +1,11 @@
 package fr.craftinglabs.blink1;
 
-public class SetColorCommand extends WriteCommand {
+public class SetColorCommand extends ChangeLedColorCommand {
 
     private static final byte SET_COLOR = (byte) 'n';
 
 	public SetColorCommand(RGBColor rgbColor, BlinkLeds led) {
+		super(rgbColor, led);
 		command[1] = SET_COLOR;
-        command[2] = rgbColor.redAsByte();
-        command[3] = rgbColor.greenAsByte();
-        command[4] = rgbColor.blueAsByte();
-        command[7] = led.asByte();
 	}
 }

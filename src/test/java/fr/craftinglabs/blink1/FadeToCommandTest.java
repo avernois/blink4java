@@ -3,7 +3,7 @@ package fr.craftinglabs.blink1;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class FadeToCommandTest extends WriteCommandTest {
+public class FadeToCommandTest extends ChangeLedColorCommandTest {
 
     @Test public void
     should_have_command_action_set_to_c() {
@@ -38,7 +38,7 @@ public class FadeToCommandTest extends WriteCommandTest {
     }
 
     @Override
-    protected WriteCommand createCommand() {
-        return new FadeToCommand(new RGBColor(0, 0, 0), 0, BlinkLeds.ALL_LEDS);
+    protected ChangeLedColorCommand createCommand(RGBColor color, BlinkLeds led) {
+        return new FadeToCommand(color, 0, led);
     }
 }

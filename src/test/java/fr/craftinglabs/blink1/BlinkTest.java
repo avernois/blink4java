@@ -11,7 +11,7 @@ public class BlinkTest {
 
     private BlinkUsbDevice device;
 	private Blink blink;
-	private ArgumentCaptor<WriteCommand> commandCaptor;
+	private ArgumentCaptor<ChangeLedColorCommand> commandCaptor;
 
 	@Test public void
     shouldSendFadeCommand() throws Exception {
@@ -35,7 +35,7 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommand() throws Exception {
-        WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS);
+        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS);
 
         blink.setColor(new RGBColor(0, 0, 0));
 
@@ -45,7 +45,7 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommandOnSpecifiedLed() throws Exception {
-        WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
 
         blink.setColor(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
 
@@ -55,7 +55,7 @@ public class BlinkTest {
 
     @Before
     public void setUp() {
-    	commandCaptor = ArgumentCaptor.forClass(WriteCommand.class);
+    	commandCaptor = ArgumentCaptor.forClass(ChangeLedColorCommand.class);
     	device = mock(BlinkUsbDevice.class);
     	
     	blink = new Blink(device);

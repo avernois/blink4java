@@ -1,17 +1,15 @@
 package fr.craftinglabs.blink1;
 
-public class FadeToCommand extends WriteCommand {
+public class FadeToCommand extends ChangeLedColorCommand {
 
     public static final byte FADE_TO = (byte) 'c';
 
     public FadeToCommand(RGBColor rgbColor, int fadeTime, BlinkLeds led) {
+    	super(rgbColor, led);
     	command[1] = FADE_TO;
-        command[2] = rgbColor.redAsByte();
-        command[3] = rgbColor.greenAsByte();
-        command[4] = rgbColor.blueAsByte();
+        
         command[5] = lowByte(fadeTime / 10);
-        command[6] = highByte(fadeTime / 10);
-        command[7] = led.asByte();
+        command[6] = highByte(fadeTime / 10);        
 	}
 
 	private byte highByte(int fadeTime) {

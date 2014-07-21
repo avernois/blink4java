@@ -16,7 +16,7 @@ public class BlinkUsbDevice {
         this.iface = iface;
     }
 
-    public void sendCommand(WriteCommand command) throws UsbException {
+    public void sendCommand(ChangeLedColorCommand command) throws UsbException {
         iface.claim(new UsbInterfacePolicy() {
 			public boolean forceClaim(UsbInterface arg0) {
 				return true;
