@@ -10,48 +10,54 @@ import static org.junit.Assert.*;
 public class BlinkTest {
 
     private BlinkUsbDevice device;
+	private Blink blink;
+	private ArgumentCaptor<WriteCommand> commandCaptor;
 
 	@Test public void
     shouldSendFadeCommand() throws Exception {
-        Blink blink = new Blink(device);
         FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000);
 
         blink.fadeToColor(new RGBColor(0, 0, 0), 2000);
 
-        ArgumentCaptor<FadeToCommand> commandCaptor = ArgumentCaptor.forClass(FadeToCommand.class);
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
     @Test public void
     shouldSendFadeCommandOnSpecificLed() throws Exception {
-    	Blink blink = new Blink(device);
     	FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLeds.LED_1);
     	
     	blink.fadeToColor(new RGBColor(0, 0, 0), 2000, BlinkLeds.LED_1);
     	
-    	ArgumentCaptor<FadeToCommand> commandCaptor = ArgumentCaptor.forClass(FadeToCommand.class);
     	verify(device).sendCommand(commandCaptor.capture());
     	assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
     
     @Test public void
     shouldSendSetColorCommand() throws Exception {
-        Blink blink = new Blink(device);
         WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0));
 
         blink.setColor(new RGBColor(0, 0, 0));
 
-        ArgumentCaptor<WriteCommand> commandCaptor = ArgumentCaptor.forClass(WriteCommand.class);
+        verify(device).sendCommand(commandCaptor.capture());
+        assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
+    }
+    
+    @Test public void
+    shouldSendSetColorCommandOnSpecifiedLed() throws Exception {
+        WriteCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+
+        blink.setColor(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
     @Before
     public void setUp() {
+    	commandCaptor = ArgumentCaptor.forClass(WriteCommand.class);
     	device = mock(BlinkUsbDevice.class);
     	
+    	blink = new Blink(device);
     }
-    
-    
 }

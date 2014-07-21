@@ -23,7 +23,11 @@ public class Blink {
     }
 
     public void setColor(RGBColor rgbColor) throws UsbException {
-        device.sendCommand(new SetColorCommand(rgbColor));
+        setColor(rgbColor, BlinkLeds.ALL_LEDS);
+    }
+
+    public void setColor(RGBColor rgbColor, BlinkLeds led) throws UsbException {
+    	device.sendCommand(new SetColorCommand(rgbColor, led));
     }
 
     public static void main(String[] args) throws UsbException, UnsupportedEncodingException {

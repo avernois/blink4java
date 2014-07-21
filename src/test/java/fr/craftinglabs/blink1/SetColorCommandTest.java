@@ -24,10 +24,17 @@ public class SetColorCommandTest extends WriteCommandTest {
 
 
     @Test public void
-    should_have_led_set_to_0_when_nothing_specified() {
+    should_have_led_set_to_ALL_LEDS_when_nothing_specified() {
         SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
 
-        assertEquals(0, command.asBytes()[7]);
+        assertEquals(BlinkLeds.ALL_LEDS.asByte(), command.asBytes()[7]);
+    }
+    
+    @Test public void
+    should_have_correct_led_set_when_a_led_is_specified() {
+        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+
+        assertEquals(BlinkLeds.LED_1.asByte(), command.asBytes()[7]);
     }
 
     @Override
