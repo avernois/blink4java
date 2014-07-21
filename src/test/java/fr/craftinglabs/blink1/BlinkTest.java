@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+import fr.craftinglabs.blink1.command.FadeToCommand;
+import fr.craftinglabs.blink1.command.SetColorCommand;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 

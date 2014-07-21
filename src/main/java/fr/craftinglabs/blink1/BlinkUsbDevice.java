@@ -3,6 +3,8 @@ package fr.craftinglabs.blink1;
 import javax.usb.*;
 import javax.usb.util.DefaultUsbControlIrp;
 
+import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+
 public class BlinkUsbDevice {
     private final UsbInterface iface;
     private UsbDevice device;

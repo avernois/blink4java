@@ -2,6 +2,9 @@ package fr.craftinglabs.blink1;
 
 import javax.usb.*;
 
+import fr.craftinglabs.blink1.command.FadeToCommand;
+import fr.craftinglabs.blink1.command.SetColorCommand;
+
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
@@ -40,7 +43,7 @@ public class Blink {
 
             System.out.println("Red : " + color.red() + ", green : " + color.green() + ", blue : " + color.blue());
 
-            blink.fadeToColor(color, 3000, BlinkLeds.LED_2);
+            blink.fadeToColor(color, 3000, BlinkLeds.LED_1);
         }
     }
 }

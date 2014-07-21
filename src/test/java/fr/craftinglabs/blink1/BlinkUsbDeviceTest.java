@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+
 import javax.usb.*;
 
 import static org.junit.Assert.*;

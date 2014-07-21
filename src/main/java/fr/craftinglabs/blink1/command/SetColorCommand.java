@@ -1,4 +1,7 @@
-package fr.craftinglabs.blink1;
+package fr.craftinglabs.blink1.command;
+
+import fr.craftinglabs.blink1.BlinkLeds;
+import fr.craftinglabs.blink1.RGBColor;
 
 public class SetColorCommand extends ChangeLedColorCommand {
 

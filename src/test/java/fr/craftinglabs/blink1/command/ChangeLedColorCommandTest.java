@@ -1,7 +1,10 @@
-package fr.craftinglabs.blink1;
+package fr.craftinglabs.blink1.command;
 
 import org.junit.Test;
 
+import fr.craftinglabs.blink1.BlinkLeds;
+import fr.craftinglabs.blink1.RGBColor;
+import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
 import static org.junit.Assert.assertEquals;
 
 public abstract class ChangeLedColorCommandTest {
