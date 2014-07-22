@@ -3,6 +3,8 @@ package fr.craftinglabs.blink1;
 import javax.usb.*;
 import javax.usb.util.DefaultUsbControlIrp;
 
+import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+
 public class BlinkUsbDevice {
     private final UsbInterface iface;
     private UsbDevice device;
@@ -16,7 +18,7 @@ public class BlinkUsbDevice {
         this.iface = iface;
     }
 
-    public void sendCommand(WriteCommand command) throws UsbException {
+    public void sendCommand(ChangeLedColorCommand command) throws UsbException {
         iface.claim(new UsbInterfacePolicy() {
 			public boolean forceClaim(UsbInterface arg0) {
 				return true;
