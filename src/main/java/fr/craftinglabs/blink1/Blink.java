@@ -18,18 +18,18 @@ public class Blink {
     }
 
     public void fadeToColor(RGBColor color, int fadeTime) throws UnsupportedEncodingException, UsbException {
-        this.fadeToColor(color, fadeTime, BlinkLeds.ALL_LEDS);
+        this.fadeToColor(color, fadeTime, BlinkLed.ALL_LEDS);
     }
     
-    public void fadeToColor(RGBColor color, int fadeTime, BlinkLeds led1) throws UsbException {
+    public void fadeToColor(RGBColor color, int fadeTime, BlinkLed led1) throws UsbException {
     	device.sendCommand(new FadeToCommand(color, fadeTime, led1));
     }
 
     public void setColor(RGBColor rgbColor) throws UsbException {
-        setColor(rgbColor, BlinkLeds.ALL_LEDS);
+        setColor(rgbColor, BlinkLed.ALL_LEDS);
     }
 
-    public void setColor(RGBColor rgbColor, BlinkLeds led) throws UsbException {
+    public void setColor(RGBColor rgbColor, BlinkLed led) throws UsbException {
     	device.sendCommand(new SetColorCommand(rgbColor, led));
     }
 
@@ -43,7 +43,7 @@ public class Blink {
 
             System.out.println("Red : " + color.red() + ", green : " + color.green() + ", blue : " + color.blue());
 
-            blink.fadeToColor(color, 3000, BlinkLeds.LED_1);
+            blink.fadeToColor(color, 3000, BlinkLed.LED_1);
         }
     }
 }

@@ -21,7 +21,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_right_request_type () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS) {});
+        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS) {});
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
@@ -33,7 +33,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_request_set_to_SET_CONFIGURATION () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS) {});
+        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS) {});
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) (UsbConst.REQUEST_SET_CONFIGURATION), argumentCaptor.getValue().bRequest());
@@ -43,7 +43,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_wIndex_set_to_0 () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS) {});
+        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS) {});
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) 0x00, argumentCaptor.getValue().wIndex());
@@ -53,7 +53,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_wValue_set_to_3 () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS) {});
+        blink.sendCommand(new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS) {});
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) 0x03, argumentCaptor.getValue().wValue());
@@ -62,7 +62,7 @@ public class BlinkUsbDeviceTest {
     @Test public void
     should_send_data_required_by_the_command() throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
-        ChangeLedColorCommand command = new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS) {};
+        ChangeLedColorCommand command = new ChangeLedColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS) {};
 
         blink.sendCommand(command);
 

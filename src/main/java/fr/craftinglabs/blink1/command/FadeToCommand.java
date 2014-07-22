@@ -1,13 +1,13 @@
 package fr.craftinglabs.blink1.command;
 
-import fr.craftinglabs.blink1.BlinkLeds;
+import fr.craftinglabs.blink1.BlinkLed;
 import fr.craftinglabs.blink1.RGBColor;
 
 public class FadeToCommand extends ChangeLedColorCommand {
 
     public static final byte FADE_TO = (byte) 'c';
 
-    public FadeToCommand(RGBColor rgbColor, int fadeTime, BlinkLeds led) {
+    public FadeToCommand(RGBColor rgbColor, int fadeTime, BlinkLed led) {
     	super(rgbColor, led);
     	command[1] = FADE_TO;
         

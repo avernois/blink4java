@@ -18,7 +18,7 @@ public class BlinkTest {
 
 	@Test public void
     shouldSendFadeCommand() throws Exception {
-        FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLeds.ALL_LEDS);
+        FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLed.ALL_LEDS);
 
         blink.fadeToColor(new RGBColor(0, 0, 0), 2000);
 
@@ -28,9 +28,9 @@ public class BlinkTest {
 
     @Test public void
     shouldSendFadeCommandOnSpecificLed() throws Exception {
-    	FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLeds.LED_1);
+    	FadeToCommand expectedCommand = new FadeToCommand(new RGBColor(0, 0, 0), 2000, BlinkLed.LED_1);
     	
-    	blink.fadeToColor(new RGBColor(0, 0, 0), 2000, BlinkLeds.LED_1);
+    	blink.fadeToColor(new RGBColor(0, 0, 0), 2000, BlinkLed.LED_1);
     	
     	verify(device).sendCommand(commandCaptor.capture());
     	assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
@@ -38,7 +38,7 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommand() throws Exception {
-        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.ALL_LEDS);
+        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS);
 
         blink.setColor(new RGBColor(0, 0, 0));
 
@@ -48,9 +48,9 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommandOnSpecifiedLed() throws Exception {
-        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.LED_1);
 
-        blink.setColor(new RGBColor(0, 0, 0), BlinkLeds.LED_1);
+        blink.setColor(new RGBColor(0, 0, 0), BlinkLed.LED_1);
 
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
