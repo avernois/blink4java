@@ -42,7 +42,9 @@ Rmq : you should not create an instance of Blink by yourself, let BlinkLocator d
 
 Current status.
 --------------
- Here are the command already implemented:
+ Here are the command already implemented on ``Blink``
  
- * set RGB color (only both leds)
- * fade to RBG color (only both leds)
+ * `setColor(RGBColor color, BlinkLed led)` set the color of the specified led now
+ * `setColor(RGBColor color)` is a shortcut to `setColor(color, led, BlinkLed.ALL_LEDS)`
+ * `fadeToColor(RGBColor color, int fadeTime, BlinkLed led)` ask `led` to fade to the given `color` in `fadeTime` milliseconds
+ * `fadeToColor(RGBColor color, int fadeTime)` is a shortcut to `fadeToColor(color, fadeTime, BlinkLed.ALL_LEDS)
