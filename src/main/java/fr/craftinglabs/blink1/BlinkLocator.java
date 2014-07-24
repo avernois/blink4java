@@ -2,6 +2,7 @@ package fr.craftinglabs.blink1;
 
 import javax.usb.UsbDevice;
 import javax.usb.UsbDeviceDescriptor;
+import javax.usb.UsbException;
 import javax.usb.UsbHub;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class BlinkLocator {
     private static final short PRODUCT_ID = 0x01ed;
 
     @SuppressWarnings("unchecked")
-	public static  List<Blink> findBlinks(UsbHub hub) {
+	public static  List<Blink> findBlinks(UsbHub hub) throws UsbException {
         List<Blink> blinks = new ArrayList<Blink>();
         for (UsbDevice device : (List<UsbDevice>) hub.getAttachedUsbDevices()) {
             if (device.isUsbHub()) {

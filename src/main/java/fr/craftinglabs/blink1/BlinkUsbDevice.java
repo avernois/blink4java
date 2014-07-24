@@ -6,25 +6,19 @@ import javax.usb.util.DefaultUsbControlIrp;
 import fr.craftinglabs.blink1.command.ChangeColorCommand;
 
 public class BlinkUsbDevice {
-    private final UsbInterface iface;
     private UsbDevice device;
 
-    public BlinkUsbDevice(UsbDevice device) {
-        this(device, device.getActiveUsbConfiguration().getUsbInterface((byte)0x00));
+    public BlinkUsbDevice(UsbDevice device) throws UsbException {
+        this(device, device.getActiveUsbConfiguration().getUsbInterface((byte) 0x00));
     }
 
-    public BlinkUsbDevice(UsbDevice device, UsbInterface iface) {
+    public BlinkUsbDevice(UsbDevice device, UsbInterface iface) throws UsbException {
         this.device = device;
-        this.iface = iface;
+
+        forceClaim(iface);
     }
 
     public void sendCommand(ChangeColorCommand command) throws UsbException {
-        iface.claim(new UsbInterfacePolicy() {
-			public boolean forceClaim(UsbInterface arg0) {
-				return true;
-			}
-		});
-
         UsbControlIrp irp = new DefaultUsbControlIrp(
                 (byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
                         UsbConst.REQUESTTYPE_RECIPIENT_INTERFACE |
@@ -35,5 +29,13 @@ public class BlinkUsbDevice {
 
         irp.setData(command.asBytes());
         device.syncSubmit(irp);
+    }
+
+    private void forceClaim(UsbInterface iface) throws UsbClaimException, UsbException {
+        iface.claim(new UsbInterfacePolicy() {
+            public boolean forceClaim(UsbInterface arg0) {
+                return true;
+            }
+        });
     }
 }
