@@ -44,7 +44,6 @@ Current status.
 --------------
  Here are the command already implemented on ``Blink``
  
- * `setColor(RGBColor color, BlinkLed led)` set the color of the specified led now
- * `setColor(RGBColor color)` is a shortcut to `setColor(color, led, BlinkLed.ALL_LEDS)`
+ * `setColor(RGBColor color)` set the color of the leds
  * `fadeToColor(RGBColor color, int fadeTime, BlinkLed led)` ask `led` to fade to the given `color` in `fadeTime` milliseconds
  * `fadeToColor(RGBColor color, int fadeTime)` is a shortcut to `fadeToColor(color, fadeTime, BlinkLed.ALL_LEDS)
