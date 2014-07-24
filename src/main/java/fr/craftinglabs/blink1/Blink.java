@@ -1,13 +1,14 @@
 package fr.craftinglabs.blink1;
 
-import javax.usb.*;
-
-import fr.craftinglabs.blink1.command.FadeToCommand;
-import fr.craftinglabs.blink1.command.SetColorCommand;
-
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Random;
+
+import javax.usb.UsbException;
+import javax.usb.UsbHostManager;
+
+import fr.craftinglabs.blink1.command.FadeToCommand;
+import fr.craftinglabs.blink1.command.SetColorCommand;
 
 public class Blink {
 
@@ -26,11 +27,7 @@ public class Blink {
     }
 
     public void setColor(RGBColor rgbColor) throws UsbException {
-        setColor(rgbColor, BlinkLed.ALL_LEDS);
-    }
-
-    public void setColor(RGBColor rgbColor, BlinkLed led) throws UsbException {
-    	device.sendCommand(new SetColorCommand(rgbColor, led));
+        device.sendCommand(new SetColorCommand(rgbColor));
     }
 
     public static void main(String[] args) throws UsbException, UnsupportedEncodingException {
