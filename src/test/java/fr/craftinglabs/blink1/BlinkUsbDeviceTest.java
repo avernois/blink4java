@@ -70,6 +70,17 @@ public class BlinkUsbDeviceTest {
         assertArrayEquals(command.asBytes(), argumentCaptor.getValue().getData());
     }
 
+    @Test public void
+    should_not_claim_device_more_than_one_time() throws UsbException {
+        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        
+        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+
+        verify(iface, times(1)).claim(any(UsbInterfacePolicy.class));
+    }
+
+    
     @Before
     public void setUp() {
         device = mock(UsbDevice.class);
