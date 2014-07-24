@@ -1,38 +1,43 @@
 package fr.craftinglabs.blink1.command;
 
-import org.junit.Test;
-
-import fr.craftinglabs.blink1.BlinkLed;
-import fr.craftinglabs.blink1.RGBColor;
-import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
-import fr.craftinglabs.blink1.command.SetColorCommand;
 import static org.junit.Assert.assertEquals;
 
-public class SetColorCommandTest extends ChangeLedColorCommandTest {
+import org.junit.Test;
+
+import fr.craftinglabs.blink1.RGBColor;
+
+public class SetColorCommandTest extends ChangeColorCommandTest {
 
     @Test public void
     should_have_command_action_set_to_n() {
-        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS);
+        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
 
         assertEquals((byte) 'n', command.asBytes()[1]);
     }
 
     @Test public void
-    should_have_led_set_to_ALL_LEDS_when_nothing_specified() {
-        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS);
+    should_have_fifth_byte_set_to_zero() {
+        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
 
-        assertEquals(BlinkLed.ALL_LEDS.asByte(), command.asBytes()[7]);
+        assertEquals((byte) 0, command.asBytes()[5]);
+    }
+
+    @Test public void
+    should_have_sixfth_byte_set_to_zero() {
+        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
+
+        assertEquals((byte) 0, command.asBytes()[6]);
     }
     
     @Test public void
-    should_have_correct_led_set_when_a_led_is_specified() {
-        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.LED_1);
+    should_have_last_byte_set_to_zero() {
+        SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
 
-        assertEquals(BlinkLed.LED_1.asByte(), command.asBytes()[7]);
+        assertEquals((byte) 0, command.asBytes()[7]);
     }
-
+    
     @Override
-    protected ChangeLedColorCommand createCommand(RGBColor color, BlinkLed led) {
-        return new SetColorCommand(color, led);
+    protected ChangeColorCommand createCommand(RGBColor color) {
+        return new SetColorCommand(color);
     }
 }

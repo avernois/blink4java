@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import fr.craftinglabs.blink1.BlinkLed;
 import fr.craftinglabs.blink1.RGBColor;
-import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+import fr.craftinglabs.blink1.command.ChangeColorCommand;
 import fr.craftinglabs.blink1.command.FadeToCommand;
 import static org.junit.Assert.*;
 
-public class FadeToCommandTest extends ChangeLedColorCommandTest {
+public class FadeToCommandTest extends ChangeColorCommandTest {
 
     @Test public void
     should_have_command_action_set_to_c() {
@@ -43,7 +43,7 @@ public class FadeToCommandTest extends ChangeLedColorCommandTest {
     }
 
     @Override
-    protected ChangeLedColorCommand createCommand(RGBColor color, BlinkLed led) {
-        return new FadeToCommand(color, 0, led);
+    protected ChangeColorCommand createCommand(RGBColor color) {
+        return new FadeToCommand(color, 0, BlinkLed.ALL_LEDS);
     }
 }

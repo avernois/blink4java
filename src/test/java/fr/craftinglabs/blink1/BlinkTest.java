@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import fr.craftinglabs.blink1.command.ChangeLedColorCommand;
+import fr.craftinglabs.blink1.command.ChangeColorCommand;
 import fr.craftinglabs.blink1.command.FadeToCommand;
 import fr.craftinglabs.blink1.command.SetColorCommand;
 import static org.mockito.Mockito.*;
@@ -14,7 +14,7 @@ public class BlinkTest {
 
     private BlinkUsbDevice device;
 	private Blink blink;
-	private ArgumentCaptor<ChangeLedColorCommand> commandCaptor;
+	private ArgumentCaptor<ChangeColorCommand> commandCaptor;
 
 	@Test public void
     shouldSendFadeCommand() throws Exception {
@@ -38,7 +38,7 @@ public class BlinkTest {
     
     @Test public void
     shouldSendSetColorCommand() throws Exception {
-        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.ALL_LEDS);
+        ChangeColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0));
 
         blink.setColor(new RGBColor(0, 0, 0));
 
@@ -46,19 +46,9 @@ public class BlinkTest {
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
     
-    @Test public void
-    shouldSendSetColorCommandOnSpecifiedLed() throws Exception {
-        ChangeLedColorCommand expectedCommand = new SetColorCommand(new RGBColor(0, 0, 0), BlinkLed.LED_1);
-
-        blink.setColor(new RGBColor(0, 0, 0), BlinkLed.LED_1);
-
-        verify(device).sendCommand(commandCaptor.capture());
-        assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
-    }
-
     @Before
     public void setUp() {
-    	commandCaptor = ArgumentCaptor.forClass(ChangeLedColorCommand.class);
+    	commandCaptor = ArgumentCaptor.forClass(ChangeColorCommand.class);
     	device = mock(BlinkUsbDevice.class);
     	
     	blink = new Blink(device);
