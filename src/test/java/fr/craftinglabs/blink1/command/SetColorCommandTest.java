@@ -37,7 +37,7 @@ public class SetColorCommandTest extends ChangeColorCommandTest {
     }
     
     @Override
-    protected ChangeColorCommand createCommand(RGBColor color) {
+    protected BlinkCommand createCommand(RGBColor color) {
         return new SetColorCommand(color);
     }
 }
