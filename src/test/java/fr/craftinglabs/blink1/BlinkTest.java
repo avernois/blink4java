@@ -21,6 +21,7 @@ import fr.craftinglabs.blink1.command.PausePatternCommand;
 import fr.craftinglabs.blink1.command.PlayPatternCommand;
 import fr.craftinglabs.blink1.command.ReadColorRequest;
 import fr.craftinglabs.blink1.command.SetColorCommand;
+import fr.craftinglabs.blink1.command.SetColorPatternLineCommand;
 
 public class BlinkTest {
 
@@ -73,6 +74,17 @@ public class BlinkTest {
         BlinkCommand expectedCommand = new PausePatternCommand();
 
         blink.pausePattern();
+
+        verify(device).sendCommand(commandCaptor.capture());
+        assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
+    }
+
+    @Test public void
+    should_set_color_pattern_line() throws Exception {
+        PatternLine line = new PatternLine(new RGBColor(10, 100, 200), 3000, 1);
+        BlinkCommand expectedCommand = new SetColorPatternLineCommand(line);
+
+        blink.setColorPatternLine(line);
 
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());

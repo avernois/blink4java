@@ -13,6 +13,7 @@ import fr.craftinglabs.blink1.command.PlayPatternCommand;
 import fr.craftinglabs.blink1.command.ReadColorPatternLineRequest;
 import fr.craftinglabs.blink1.command.ReadColorRequest;
 import fr.craftinglabs.blink1.command.SetColorCommand;
+import fr.craftinglabs.blink1.command.SetColorPatternLineCommand;
 
 public class Blink {
 
@@ -40,7 +41,11 @@ public class Blink {
     	
     	return extractColor(response);
     }
-    
+
+    public void setColorPatternLine(PatternLine line) throws UsbException {
+        device.sendCommand(new SetColorPatternLineCommand(line));
+    }
+
     public PatternLine readPatternLineAt(int position) throws UsbException {
         device.sendCommand(new ReadColorPatternLineRequest(position));
         byte[] response = device.readResponse();
@@ -89,6 +94,7 @@ public class Blink {
 			System.out.println("read : Red : " + color.red() + ", green : " + color.green() + ", blue : " + color.blue());
 		}
 	}
+
 
 
 
