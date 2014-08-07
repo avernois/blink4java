@@ -8,6 +8,7 @@ import javax.usb.UsbException;
 import javax.usb.UsbHostManager;
 
 import fr.craftinglabs.blink1.command.FadeToCommand;
+import fr.craftinglabs.blink1.command.ReadColorPatternLineRequest;
 import fr.craftinglabs.blink1.command.ReadColorRequest;
 import fr.craftinglabs.blink1.command.SetColorCommand;
 
@@ -38,6 +39,13 @@ public class Blink {
     	return extractColor(response);
     }
     
+    public PatternLine readPatternLineAt(int position) throws UsbException {
+        device.sendCommand(new ReadColorPatternLineRequest(position));
+        byte[] response = device.readResponse();
+
+        int fadeTime = (convertToPositiveInt(response[5])*256 + convertToPositiveInt(response[6])) * 10;
+        return new PatternLine(extractColor(response), fadeTime, convertToPositiveInt(response[7]));
+    }
 
 
 	private RGBColor extractColor(byte[] response) {
@@ -68,4 +76,5 @@ public class Blink {
 			System.out.println("read : Red : " + color.red() + ", green : " + color.green() + ", blue : " + color.blue());
 		}
 	}
+
 }

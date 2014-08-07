@@ -87,19 +87,51 @@ public class BlinkTest {
 		
 		assertThat(color, matches(new RGBColor(10, 100, 200)));
 	}
-    
-    
-    
-    @Before
+
+    @Test public void 
+	should_return_pattern_line_answered_by_device_when_asked_for_a_pattern_line() throws UsbException {
+        int fadeTime = 3000;
+        byte tl = (byte) ((fadeTime/10) & 0xff);
+        byte th = (byte) (fadeTime/10 >> 8);
+        int position = 1;
+        byte[] deviceResponse = new byte[] {0x01, 'R', (byte) 10, (byte) 100, (byte) 200, th, tl, (byte)position};
+        when(device.readResponse()).thenReturn(deviceResponse);
+
+        PatternLine patternLine = blink.readPatternLineAt(1);
+
+        assertThat(patternLine, matches(new PatternLine(new RGBColor(10, 100, 200), fadeTime, position)));
+	}
+
+	@Before
     public void setUp() {
     	commandCaptor = ArgumentCaptor.forClass(BlinkCommand.class);
     	device = mock(BlinkUsbDevice.class);
     	
     	blink = new Blink(device);
     }
-    
-    
-	public static Matcher<RGBColor> matches(final RGBColor expected){
+
+	public static Matcher<PatternLine> matches(final PatternLine expected){
+
+	    return new BaseMatcher<PatternLine>() {
+
+	        protected PatternLine theExpected = expected;
+
+	        public boolean matches(Object o) {
+	            PatternLine actual = (PatternLine) o;
+	            return expected.fadeTime() == actual.fadeTime() 
+	                    && expected.color().red() == actual.color().red()
+	                    && expected.color().green() == actual.color().green()
+	                    && expected.color().blue() == actual.color().blue()
+	                    && expected.position() == actual.position();
+	        }
+
+	        public void describeTo(Description description) {
+	            description.appendText(theExpected.toString());
+	        }
+	    };
+	}
+
+    public static Matcher<RGBColor> matches(final RGBColor expected){
 
 	    return new BaseMatcher<RGBColor>() {
 
