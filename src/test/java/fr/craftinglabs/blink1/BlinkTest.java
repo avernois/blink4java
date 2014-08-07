@@ -23,6 +23,7 @@ import fr.craftinglabs.blink1.command.ReadColorRequest;
 import fr.craftinglabs.blink1.command.SavePatternCommand;
 import fr.craftinglabs.blink1.command.SetColorCommand;
 import fr.craftinglabs.blink1.command.SetPatternLineCommand;
+import fr.craftinglabs.blink1.matchers.RGBColorMatcher;
 
 public class BlinkTest {
 
@@ -140,7 +141,7 @@ public class BlinkTest {
 
         RGBColor color = blink.readCurrentColor(BlinkLed.LED_1);
 
-        assertThat(color, matches(new RGBColor(10, 100, 200)));
+        assertThat(color, RGBColorMatcher.matches(new RGBColor(10, 100, 200)));
     }
 
     @Test public void 
@@ -178,25 +179,6 @@ public class BlinkTest {
 	                    && expected.color().green() == actual.color().green()
 	                    && expected.color().blue() == actual.color().blue()
 	                    && expected.position() == actual.position();
-	        }
-
-	        public void describeTo(Description description) {
-	            description.appendText(theExpected.toString());
-	        }
-	    };
-	}
-
-    public static Matcher<RGBColor> matches(final RGBColor expected){
-
-	    return new BaseMatcher<RGBColor>() {
-
-	        protected RGBColor theExpected = expected;
-
-	        public boolean matches(Object o) {
-	            RGBColor actual = (RGBColor) o;
-	            return expected.red() == actual.red() 
-	                    && expected.green() == actual.green()
-	                    && expected.blue() == actual.blue();
 	        }
 
 	        public void describeTo(Description description) {
