@@ -1,8 +1,8 @@
 package fr.craftinglabs.blink1.command;
 
-public class SaveColorPatternCommand extends BlinkCommand {
+public class SavePatternCommand extends BlinkCommand {
 
-    public SaveColorPatternCommand() {
+    public SavePatternCommand() {
         command[1] = 'W';
         command[2] = (byte) 0xBE;
         command[3] = (byte) 0xEF;

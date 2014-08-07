@@ -10,11 +10,11 @@ import javax.usb.UsbHostManager;
 import fr.craftinglabs.blink1.command.FadeToCommand;
 import fr.craftinglabs.blink1.command.PausePatternCommand;
 import fr.craftinglabs.blink1.command.PlayPatternCommand;
-import fr.craftinglabs.blink1.command.ReadColorPatternLineRequest;
+import fr.craftinglabs.blink1.command.ReadPatternLineRequest;
 import fr.craftinglabs.blink1.command.ReadColorRequest;
-import fr.craftinglabs.blink1.command.SaveColorPatternCommand;
+import fr.craftinglabs.blink1.command.SavePatternCommand;
 import fr.craftinglabs.blink1.command.SetColorCommand;
-import fr.craftinglabs.blink1.command.SetColorPatternLineCommand;
+import fr.craftinglabs.blink1.command.SetPatternLineCommand;
 
 public class Blink {
 
@@ -43,12 +43,12 @@ public class Blink {
     	return extractColor(response);
     }
 
-    public void setColorPatternLine(PatternLine line) throws UsbException {
-        device.sendCommand(new SetColorPatternLineCommand(line));
+    public void setPatternLine(PatternLine line) throws UsbException {
+        device.sendCommand(new SetPatternLineCommand(line));
     }
 
     public PatternLine readPatternLineAt(int position) throws UsbException {
-        device.sendCommand(new ReadColorPatternLineRequest(position));
+        device.sendCommand(new ReadPatternLineRequest(position));
         byte[] response = device.readResponse();
 
         int fadeTime = (convertToPositiveInt(response[5])*256 + convertToPositiveInt(response[6])) * 10;
@@ -67,8 +67,8 @@ public class Blink {
         device.sendCommand(new PausePatternCommand());
     }
 
-    public void saveColorPattern() throws UsbException {
-        device.sendCommand(new SaveColorPatternCommand());
+    public void savePattern() throws UsbException {
+        device.sendCommand(new SavePatternCommand());
     }
 
     private RGBColor extractColor(byte[] response) {

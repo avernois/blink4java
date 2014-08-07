@@ -20,9 +20,9 @@ import fr.craftinglabs.blink1.command.FadeToCommand;
 import fr.craftinglabs.blink1.command.PausePatternCommand;
 import fr.craftinglabs.blink1.command.PlayPatternCommand;
 import fr.craftinglabs.blink1.command.ReadColorRequest;
-import fr.craftinglabs.blink1.command.SaveColorPatternCommand;
+import fr.craftinglabs.blink1.command.SavePatternCommand;
 import fr.craftinglabs.blink1.command.SetColorCommand;
-import fr.craftinglabs.blink1.command.SetColorPatternLineCommand;
+import fr.craftinglabs.blink1.command.SetPatternLineCommand;
 
 public class BlinkTest {
 
@@ -83,9 +83,9 @@ public class BlinkTest {
     @Test public void
     should_set_color_pattern_line() throws Exception {
         PatternLine line = new PatternLine(new RGBColor(10, 100, 200), 3000, 1);
-        BlinkCommand expectedCommand = new SetColorPatternLineCommand(line);
+        BlinkCommand expectedCommand = new SetPatternLineCommand(line);
 
-        blink.setColorPatternLine(line);
+        blink.setPatternLine(line);
 
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
@@ -103,9 +103,9 @@ public class BlinkTest {
 
     @Test public void
     should_send_save_color_pattern() throws Exception {
-        BlinkCommand expectedCommand = new SaveColorPatternCommand();
+        BlinkCommand expectedCommand = new SavePatternCommand();
 
-        blink.saveColorPattern();
+        blink.savePattern();
 
         verify(device).sendCommand(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());

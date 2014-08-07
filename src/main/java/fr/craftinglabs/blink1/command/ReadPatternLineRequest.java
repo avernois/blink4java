@@ -1,9 +1,9 @@
 package fr.craftinglabs.blink1.command;
 
 
-public class ReadColorPatternLineRequest extends BlinkCommand {
+public class ReadPatternLineRequest extends BlinkCommand {
 
-	public ReadColorPatternLineRequest(int position) {
+	public ReadPatternLineRequest(int position) {
 		command[1] = (byte) 'R';
 		command[2] = 0;
 		command[3] = 0;

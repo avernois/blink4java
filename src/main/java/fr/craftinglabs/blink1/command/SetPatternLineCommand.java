@@ -2,9 +2,9 @@ package fr.craftinglabs.blink1.command;
 
 import fr.craftinglabs.blink1.PatternLine;
 
-public class SetColorPatternLineCommand extends BlinkCommand {
+public class SetPatternLineCommand extends BlinkCommand {
 
-    public SetColorPatternLineCommand(PatternLine patternLine) {
+    public SetPatternLineCommand(PatternLine patternLine) {
         command[1] = (byte) 'P';
         command[2] = patternLine.color().redAsByte();
         command[3] = patternLine.color().greenAsByte();

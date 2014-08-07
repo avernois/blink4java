@@ -8,18 +8,18 @@ import org.junit.Test;
 import fr.craftinglabs.blink1.PatternLine;
 import fr.craftinglabs.blink1.RGBColor;
 
-public class SetColorPatternLineCommandTest extends BlinkCommandTest {
+public class SetPatternLineCommandTest extends BlinkCommandTest {
 
     @Test public void 
     should_have_type_set_to_P() {
-        SetColorPatternLineCommand command = new SetColorPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
+        SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
         
         assertThat(command.asBytes()[1], is((byte) 'P'));
     }
     
     @Test public void 
     should_have_color_set_in_bytes_2_3_and_4() {
-        SetColorPatternLineCommand command = new SetColorPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
+        SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
         
         assertThat(command.asBytes()[2], is((byte) 10));
         assertThat(command.asBytes()[3], is((byte) 100));
@@ -31,7 +31,7 @@ public class SetColorPatternLineCommandTest extends BlinkCommandTest {
         int fadeTime = 3000;
         byte fadeTimeHighByte = (byte) (fadeTime / 10 >> 8);
         byte fadeTimeLowByte = (byte) (fadeTime / 10 & 0xff);
-        SetColorPatternLineCommand command = new SetColorPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), fadeTime, 1));
+        SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), fadeTime, 1));
 
         assertThat(command.asBytes()[5], is(fadeTimeHighByte));
         assertThat(command.asBytes()[6], is(fadeTimeLowByte));
@@ -39,14 +39,14 @@ public class SetColorPatternLineCommandTest extends BlinkCommandTest {
 
     @Test public void 
     should_have_position_in_byte_7() {
-        SetColorPatternLineCommand command = new SetColorPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
+        SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
 
         assertThat(command.asBytes()[7], is((byte) 1));
     }
     
     @Override
     protected BlinkCommand createCommand() {
-        return new SetColorPatternLineCommand(new PatternLine(new RGBColor(0, 0, 0), 1000, 1000));
+        return new SetPatternLineCommand(new PatternLine(new RGBColor(0, 0, 0), 1000, 1000));
     }
 
 }
