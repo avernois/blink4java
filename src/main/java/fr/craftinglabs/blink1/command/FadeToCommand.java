@@ -11,17 +11,17 @@ public class FadeToCommand extends ChangeColorCommand {
     	super(rgbColor);
     	command[1] = FADE_TO;
         
-        command[5] = lowByte(fadeTime / 10);
-        command[6] = highByte(fadeTime / 10);
+        command[5] = highByte(fadeTime / 10);
+        command[6] = lowByte(fadeTime / 10);
         
         command[7] = led.asByte();
 	}
 
-	private byte highByte(int fadeTime) {
+	private byte lowByte(int fadeTime) {
         return (byte) (fadeTime & 0xff);
     }
 
-    private byte lowByte(int fadeTime) {
+    private byte highByte(int fadeTime) {
         return (byte) (fadeTime >> 8);
     }
 }
