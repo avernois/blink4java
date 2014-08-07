@@ -16,7 +16,7 @@ public class SetPatternLineCommandTest extends BlinkCommandTest {
         
         assertThat(command.asBytes()[1], is((byte) 'P'));
     }
-    
+
     @Test public void 
     should_have_color_set_in_bytes_2_3_and_4() {
         SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
@@ -25,7 +25,7 @@ public class SetPatternLineCommandTest extends BlinkCommandTest {
         assertThat(command.asBytes()[3], is((byte) 100));
         assertThat(command.asBytes()[4], is((byte) 200));
     }
-    
+
     @Test public void 
     should_have_fadeTime_split_in_byte_5_and_6() {
         int fadeTime = 3000;
@@ -43,10 +43,9 @@ public class SetPatternLineCommandTest extends BlinkCommandTest {
 
         assertThat(command.asBytes()[7], is((byte) 1));
     }
-    
+
     @Override
     protected BlinkCommand createCommand() {
         return new SetPatternLineCommand(new PatternLine(new RGBColor(0, 0, 0), 1000, 1000));
     }
-
 }

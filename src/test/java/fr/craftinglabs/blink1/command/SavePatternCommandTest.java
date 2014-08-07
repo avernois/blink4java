@@ -17,13 +17,13 @@ public class SavePatternCommandTest extends BlinkCommandTest{
     @Test public void 
     should_have_beef_and_cafe() {
         BlinkCommand command = new SavePatternCommand();
-        
+
         assertThat(command.asBytes()[2], is((byte) 0xBE));
         assertThat(command.asBytes()[3], is((byte) 0xEF));
         assertThat(command.asBytes()[4], is((byte) 0xCA));
         assertThat(command.asBytes()[5], is((byte) 0xFE));
     }
-    
+
     @Test public void 
     should_have_all_other_byte_set_to_0() {
         BlinkCommand command = new SavePatternCommand();

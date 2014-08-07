@@ -9,7 +9,7 @@ public class PausePatternCommandTest extends BlinkCommandTest {
 
     private static final int TYPE_INDEX = 1;
 
-    @Test public void 
+    @Test public void
     should_have_type_set_to_p() {
         PausePatternCommand command = new PausePatternCommand();
 

@@ -18,7 +18,7 @@ public class PlayPatternCommandTest extends BlinkCommandTest {
 
         assertThat(command.asBytes()[TYPE_INDEX], is((byte) 'p'));
     }
-    
+
     @Test public void 
     should_have_play_byte_set_to_1() {
         PlayPatternCommand command = new PlayPatternCommand();
