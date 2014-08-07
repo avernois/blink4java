@@ -33,12 +33,12 @@ public class FadeToCommandTest extends ChangeColorCommandTest {
         assertEquals((byte) (3000/10 >> 8), command.asBytes()[5]);
         assertEquals((byte) (3000/10 & 0xff), command.asBytes()[6]);
     }
-    
+
     @Test public void
     should_have_specified_led_correctly_set() {
-    	FadeToCommand command = new FadeToCommand(new RGBColor(0, 0, 0), 0, BlinkLed.LED_1);
-    	
-    	assertEquals(BlinkLed.LED_1.asByte(), command.asBytes()[7]);
+        FadeToCommand command = new FadeToCommand(new RGBColor(0, 0, 0), 0, BlinkLed.LED_1);
+        
+        assertEquals(BlinkLed.LED_1.asByte(), command.asBytes()[7]);
     }
 
     @Override

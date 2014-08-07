@@ -91,23 +91,23 @@ public class BlinkUsbDeviceTest {
 
     @Test public void 
 	should_return_a_response() throws UsbException {
-    	BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
-    	
-		byte[] response = blink.readResponse();
-		
-		assertEquals(8, response.length);
-	}
+        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        
+        byte[] response = blink.readResponse();
+
+        assertEquals(8, response.length);
+    }
     
     @Test public void 
-	should_ask_device_for_the_response_with_holder_for_it() throws UsbException {
-    	BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
-    	
-    	blink.readResponse();
-    	
-    	verify(device).syncSubmit(argumentCaptor.capture());
+    should_ask_device_for_the_response_with_holder_for_it() throws UsbException {
+        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+
+        blink.readResponse();
+
+        verify(device).syncSubmit(argumentCaptor.capture());
         assertArrayEquals(new byte[8], argumentCaptor.getValue().getData());
-	}
-    
+    }
+
     @Test public void
     should_ask_device_for_the_response_with_right_request_type () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
@@ -119,7 +119,7 @@ public class BlinkUsbDeviceTest {
                 UsbConst.REQUESTTYPE_RECIPIENT_INTERFACE |
                 UsbConst.ENDPOINT_DIRECTION_IN), argumentCaptor.getValue().bmRequestType());
     }
-    
+
     @Test public void
     should_ask_device_for_the_response_with_right_request() throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);

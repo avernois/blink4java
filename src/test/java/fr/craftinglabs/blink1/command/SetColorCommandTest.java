@@ -35,7 +35,7 @@ public class SetColorCommandTest extends ChangeColorCommandTest {
 
         assertEquals((byte) 0, command.asBytes()[7]);
     }
-    
+
     @Override
     protected BlinkCommand createCommand(RGBColor color) {
         return new SetColorCommand(color);

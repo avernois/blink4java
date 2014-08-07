@@ -48,3 +48,9 @@ Current status.
  * `fadeToColor(RGBColor color, int fadeTime, BlinkLed led)` ask `led` to fade to the given `color` in `fadeTime` milliseconds
  * `fadeToColor(RGBColor color, int fadeTime)` is a shortcut to `fadeToColor(color, fadeTime, BlinkLed.ALL_LEDS)
  * `RGBColor readCurrentColor(BlinkLed led)` return the current color of the specified led. Note : even with a fadeTime=0, fadeToColor is not instantaneous and readCurrentColor may return an intermediate value if executed just after fadeToColor.
+ * `setPatternLine(PatternLine line)` set the PatternLine
+ * `PatternLine readPatternLineAt(int position)` return the patternLine at position
+ * `playPattern()` play the current pattern in loop forever
+ * `playPattern(int startingPoint, int endingPoint, int repeat)` play the pattern from startingPoint position to endingPoint position for repeat times
+ * `pausePattern()` stop playing pattern. (note: blink1 will stay with the last color displayed)
+ * `savePattern()` save the pattern in the flash memory so the pattern will survive to a power off. (warning: previous pattern will be unrecoverable!)

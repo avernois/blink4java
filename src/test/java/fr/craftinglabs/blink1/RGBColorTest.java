@@ -6,22 +6,22 @@ import static org.junit.Assert.*;
  * Created by avernois on 20/07/14.
  */
 public class RGBColorTest {
-    @Test
-    public void shouldHaveRedComponentProperlySet() {
+    @Test public void
+    shouldHaveRedComponentProperlySet() {
         RGBColor color = new RGBColor(100, 0, 0);
 
         assertEquals(100, color.red());
     }
 
-    @Test
-    public void shouldHaveGreenComponentProperlySet() {
+    @Test public void
+    shouldHaveGreenComponentProperlySet() {
         RGBColor color = new RGBColor(0, 110, 0);
 
         assertEquals(110, color.green());
     }
 
-    @Test
-    public void shouldHaveBlueComponentProperlySet() {
+    @Test public void
+    shouldHaveBlueComponentProperlySet() {
         RGBColor color = new RGBColor(0, 0, 120);
 
         assertEquals(120, color.blue());

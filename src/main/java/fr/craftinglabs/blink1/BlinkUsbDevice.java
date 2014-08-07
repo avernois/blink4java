@@ -45,7 +45,7 @@ public class BlinkUsbDevice {
         });
     }
 
-	public byte[] readResponse() throws UsbException {
+    public byte[] readResponse() throws UsbException {
         UsbControlIrp irp = new DefaultUsbControlIrp(
                 (byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
                         UsbConst.REQUESTTYPE_RECIPIENT_INTERFACE |
