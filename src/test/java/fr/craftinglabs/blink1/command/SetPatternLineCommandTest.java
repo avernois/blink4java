@@ -14,7 +14,7 @@ public class SetPatternLineCommandTest extends BlinkCommandTest {
     should_have_type_set_to_P() {
         SetPatternLineCommand command = new SetPatternLineCommand(new PatternLine(new RGBColor(10, 100, 200), 3000, 1));
         
-        assertThat(command.asBytes()[1], is((byte) 'P'));
+        assertThat(command.asBytes()[TYPE_INDEX], is((byte) 'P'));
     }
 
     @Test public void 

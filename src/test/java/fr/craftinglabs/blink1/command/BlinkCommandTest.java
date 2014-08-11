@@ -6,6 +6,8 @@ import org.junit.Test;
 
 public abstract class BlinkCommandTest {
 
+	protected static final int TYPE_INDEX = 1;
+	
     @Test public void 
     should_return_a_byte_array() {
         BlinkCommand command = createCommand();

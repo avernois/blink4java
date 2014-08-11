@@ -5,7 +5,7 @@ import fr.craftinglabs.blink1.PatternLine;
 public class SetPatternLineCommand extends BlinkCommand {
 
     public SetPatternLineCommand(PatternLine patternLine) {
-        command[1] = (byte) 'P';
+        super(BlinkCommandType.SET_PATTERN_LINE);
         command[2] = patternLine.color().redAsByte();
         command[3] = patternLine.color().greenAsByte();
         command[4] = patternLine.color().blueAsByte();

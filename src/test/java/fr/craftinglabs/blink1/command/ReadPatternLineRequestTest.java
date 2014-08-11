@@ -12,7 +12,7 @@ public class ReadPatternLineRequestTest extends BlinkCommandTest {
     should_have_type_set_to_R() {
         BlinkCommand command = new ReadPatternLineRequest(0);
 
-        assertThat(command.asBytes()[1], is((byte) 'R'));
+        assertThat(command.asBytes()[TYPE_INDEX], is((byte) 'R'));
     }
 
     @Test public void 
