@@ -18,7 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import fr.craftinglabs.blink1.command.ChangeColorCommand;
+import fr.craftinglabs.blink1.command.BlinkCommand;
+import fr.craftinglabs.blink1.command.SavePatternCommand;
 
 public class BlinkUsbDeviceTest {
 
@@ -30,7 +31,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_right_request_type () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(createCommand());
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
@@ -38,11 +39,12 @@ public class BlinkUsbDeviceTest {
                 UsbConst.ENDPOINT_DIRECTION_OUT), argumentCaptor.getValue().bmRequestType());
     }
 
+
     @Test public void
     should_send_command_with_request_set_to_SET_CONFIGURATION () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(createCommand());
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) (UsbConst.REQUEST_SET_CONFIGURATION), argumentCaptor.getValue().bRequest());
@@ -52,7 +54,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_wIndex_set_to_0 () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(createCommand());
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) 0x00, argumentCaptor.getValue().wIndex());
@@ -62,7 +64,7 @@ public class BlinkUsbDeviceTest {
     should_send_command_with_wValue_set_to_3 () throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
 
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(createCommand());
 
         verify(device).syncSubmit(argumentCaptor.capture());
         assertEquals((byte) 0x03, argumentCaptor.getValue().wValue());
@@ -71,7 +73,7 @@ public class BlinkUsbDeviceTest {
     @Test public void
     should_send_data_required_by_the_command() throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
-        ChangeColorCommand command = new ChangeColorCommand(new RGBColor(0, 0, 0)) {};
+        BlinkCommand command = createCommand();
 
         blink.sendCommand(command);
 
@@ -83,8 +85,8 @@ public class BlinkUsbDeviceTest {
     should_not_claim_device_more_than_one_time() throws UsbException {
         BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
         
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
-        blink.sendCommand(new ChangeColorCommand(new RGBColor(0, 0, 0)) {});
+        blink.sendCommand(createCommand());
+        blink.sendCommand(createCommand());
 
         verify(iface, times(1)).claim(any(UsbInterfacePolicy.class));
     }
@@ -150,11 +152,14 @@ public class BlinkUsbDeviceTest {
         assertEquals((byte) 0x03, argumentCaptor.getValue().wValue());
     }
 
-    
     @Before
     public void setUp() {
         device = mock(UsbDevice.class);
         iface = mock(UsbInterface.class);
         argumentCaptor = ArgumentCaptor.forClass(UsbControlIrp.class);
+    }
+
+    private BlinkCommand createCommand() {
+        return new SavePatternCommand();
     }
 }
