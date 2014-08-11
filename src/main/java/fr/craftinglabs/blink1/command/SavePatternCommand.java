@@ -3,7 +3,8 @@ package fr.craftinglabs.blink1.command;
 public class SavePatternCommand extends BlinkCommand {
 
     public SavePatternCommand() {
-        command[1] = 'W';
+        super(BlinkCommandType.SAVE_PATTERN);
+
         command[2] = (byte) 0xBE;
         command[3] = (byte) 0xEF;
         command[4] = (byte) 0xCA;

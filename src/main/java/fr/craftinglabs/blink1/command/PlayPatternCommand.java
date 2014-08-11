@@ -12,7 +12,7 @@ public class PlayPatternCommand extends BlinkCommand {
     }
 
     public PlayPatternCommand(int startingPoint, int endingPoint, int repeat) {
-        command[1] = (byte) 'p';
+        super(BlinkCommandType.PLAY_PATTERN);
         command[2] = (byte) PLAY;
 
         command[3] = (byte) startingPoint;

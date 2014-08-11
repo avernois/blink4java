@@ -3,7 +3,7 @@ package fr.craftinglabs.blink1.command;
 public class ReadPatternLineRequest extends BlinkCommand {
 
     public ReadPatternLineRequest(int position) {
-        command[1] = (byte) 'R';
+        super(BlinkCommandType.READ_PATTERN_LINE);
         command[2] = 0;
         command[3] = 0;
         command[4] = 0;
