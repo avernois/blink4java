@@ -13,7 +13,7 @@ public class ReadColorRequestTest extends BlinkCommandTest {
 
     @Test public void 
     should_have_request_type_set_to_r() {
-        assertEquals((byte) 'r', request.asBytes()[1]);
+        assertEquals((byte) 'r', request.asBytes()[TYPE_INDEX]);
     }
 
     @Test public void 

@@ -11,7 +11,7 @@ public class SavePatternCommandTest extends BlinkCommandTest{
     should_have_type_set_to_W() {
         BlinkCommand command = new SavePatternCommand();
 
-        assertThat(command.asBytes()[1], is((byte) 'W'));
+        assertThat(command.asBytes()[TYPE_INDEX], is((byte) 'W'));
     }
 
     @Test public void 

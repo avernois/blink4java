@@ -13,7 +13,7 @@ public class FadeToCommandTest extends ChangeColorCommandTest {
     should_have_command_action_set_to_c() {
         FadeToCommand command = new FadeToCommand(new RGBColor(0, 0, 0), 0, BlinkLed.ALL_LEDS);
 
-        assertEquals((byte) 'c', command.asBytes()[1]);
+        assertEquals((byte) 'c', command.asBytes()[TYPE_INDEX]);
     }
 
     @Test public void

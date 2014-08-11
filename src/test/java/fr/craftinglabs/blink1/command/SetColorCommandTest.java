@@ -12,7 +12,7 @@ public class SetColorCommandTest extends ChangeColorCommandTest {
     should_have_command_action_set_to_n() {
         SetColorCommand command = new SetColorCommand(new RGBColor(0, 0, 0));
 
-        assertEquals((byte) 'n', command.asBytes()[1]);
+        assertEquals((byte) 'n', command.asBytes()[TYPE_INDEX]);
     }
 
     @Test public void

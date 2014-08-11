@@ -7,7 +7,6 @@ import org.junit.Test;
 
 public class PlayPatternCommandTest extends BlinkCommandTest {
 
-    private static final int TYPE_INDEX = 1;
     private static final int REPEAT_INDEX = 5;
     private static final int ENDING_POINT_INDEX = 4;
     private static final int STARTING_POINT_INDEX = 3;
