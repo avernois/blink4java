@@ -21,7 +21,7 @@ public class BlinkLocator {
             } else {
                 UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
                 if (desc.idVendor() == VENDOR_ID && desc.idProduct() == PRODUCT_ID)
-                    blinks.add(new Blink(new BlinkUsbDevice(device)));
+                    blinks.add(new Blink(new BlinkUsbDevice(new SimpleUsbDevice(device))));
             }
         }
 

@@ -6,10 +6,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import javax.usb.UsbConst;
 import javax.usb.UsbControlIrp;
-import javax.usb.UsbDevice;
 import javax.usb.UsbException;
 import javax.usb.UsbInterface;
 import javax.usb.UsbInterfacePolicy;
@@ -23,13 +23,14 @@ import fr.craftinglabs.blink1.command.SavePatternCommand;
 
 public class BlinkUsbDeviceTest {
 
-    private UsbDevice device;
     private UsbInterface iface;
     private ArgumentCaptor<UsbControlIrp> argumentCaptor;
-
+    private SimpleUsbDevice device;
+    
+    
     @Test public void
     should_send_command_with_right_request_type () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.sendCommand(createCommand());
 
@@ -42,7 +43,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_send_command_with_request_set_to_SET_CONFIGURATION () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.sendCommand(createCommand());
 
@@ -52,7 +53,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_send_command_with_wIndex_set_to_0 () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.sendCommand(createCommand());
 
@@ -62,7 +63,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_send_command_with_wValue_set_to_3 () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.sendCommand(createCommand());
 
@@ -72,7 +73,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_send_data_required_by_the_command() throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
         BlinkCommand command = createCommand();
 
         blink.sendCommand(command);
@@ -83,7 +84,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_not_claim_device_more_than_one_time() throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
         
         blink.sendCommand(createCommand());
         blink.sendCommand(createCommand());
@@ -93,8 +94,9 @@ public class BlinkUsbDeviceTest {
 
     @Test public void 
 	should_return_a_response() throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
         
+
         byte[] response = blink.readResponse();
 
         assertEquals(8, response.length);
@@ -102,7 +104,7 @@ public class BlinkUsbDeviceTest {
     
     @Test public void 
     should_ask_device_for_the_response_with_holder_for_it() throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.readResponse();
 
@@ -112,7 +114,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_ask_device_for_the_response_with_right_request_type () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.readResponse();
 
@@ -124,7 +126,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_ask_device_for_the_response_with_right_request() throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.readResponse();
 
@@ -134,7 +136,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_ask_device_for_the_response_with_wIndex_set_to_0 () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.readResponse();
 
@@ -144,7 +146,7 @@ public class BlinkUsbDeviceTest {
 
     @Test public void
     should_ask_device_for_the_response_with_wValue_set_to_3 () throws UsbException {
-        BlinkUsbDevice blink = new BlinkUsbDevice(device, iface);
+        BlinkUsbDevice blink = new BlinkUsbDevice(device);
 
         blink.readResponse();
 
@@ -154,8 +156,9 @@ public class BlinkUsbDeviceTest {
 
     @Before
     public void setUp() {
-        device = mock(UsbDevice.class);
         iface = mock(UsbInterface.class);
+        device = mock(SimpleUsbDevice.class);
+        when(device.getActiveInterface((byte) 0)).thenReturn(iface);
         argumentCaptor = ArgumentCaptor.forClass(UsbControlIrp.class);
     }
 

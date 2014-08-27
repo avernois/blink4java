@@ -3,7 +3,6 @@ package fr.craftinglabs.blink1;
 import javax.usb.UsbClaimException;
 import javax.usb.UsbConst;
 import javax.usb.UsbControlIrp;
-import javax.usb.UsbDevice;
 import javax.usb.UsbException;
 import javax.usb.UsbInterface;
 import javax.usb.UsbInterfacePolicy;
@@ -12,17 +11,13 @@ import javax.usb.util.DefaultUsbControlIrp;
 import fr.craftinglabs.blink1.command.BlinkCommand;
 
 public class BlinkUsbDevice {
-    private UsbDevice device;
-
-    public BlinkUsbDevice(UsbDevice device) throws UsbException {
-        this(device, device.getActiveUsbConfiguration().getUsbInterface((byte) 0x00));
-    }
-
-    public BlinkUsbDevice(UsbDevice device, UsbInterface iface) throws UsbException {
-        this.device = device;
-
-        forceClaim(iface);
-    }
+    private SimpleUsbDevice simpleDevice;
+    
+    public BlinkUsbDevice(SimpleUsbDevice device) throws UsbClaimException, UsbException {
+        this.simpleDevice = device;
+        
+        forceClaim(device.getActiveInterface((byte) 0x00));
+    }    
 
     public void sendCommand(BlinkCommand command) throws UsbException {
         UsbControlIrp irp = new DefaultUsbControlIrp(
@@ -34,7 +29,7 @@ public class BlinkUsbDevice {
                 (short) 0);
 
         irp.setData(command.asBytes());
-        device.syncSubmit(irp);
+        simpleDevice.syncSubmit(irp);
     }
     
     private void forceClaim(UsbInterface iface) throws UsbClaimException, UsbException {
@@ -55,7 +50,7 @@ public class BlinkUsbDevice {
                 (short) 0);
 
         irp.setData(new byte[8]);
-        device.syncSubmit(irp);
+        simpleDevice.syncSubmit(irp);
         
         return irp.getData();
 	}
