@@ -29,46 +29,46 @@ public class Blink {
     }
 
     public void fadeToColor(RGBColor color, int fadeTime, BlinkLed led1) throws UsbException {
-    	device.sendCommand(new FadeToCommand(color, fadeTime, led1));
+    	device.execute(new FadeToCommand(color, fadeTime, led1));
     }
 
     public void setColor(RGBColor rgbColor) throws UsbException {
-        device.sendCommand(new SetColorCommand(rgbColor));
+        device.execute(new SetColorCommand(rgbColor));
     }
 
     public RGBColor readCurrentColor(BlinkLed led) throws UsbException {
-    	device.sendCommand(new ReadColorRequest(led));
-    	byte[] response = device.readResponse();
+    	device.execute(new ReadColorRequest(led));
+    	byte[] response = device.query();
     	
     	return extractColor(response);
     }
 
     public void setPatternLine(PatternLine line) throws UsbException {
-        device.sendCommand(new SetPatternLineCommand(line));
+        device.execute(new SetPatternLineCommand(line));
     }
 
     public PatternLine readPatternLineAt(int position) throws UsbException {
-        device.sendCommand(new ReadPatternLineRequest(position));
-        byte[] response = device.readResponse();
+        device.execute(new ReadPatternLineRequest(position));
+        byte[] response = device.query();
 
         int fadeTime = (convertToPositiveInt(response[5])*256 + convertToPositiveInt(response[6])) * 10;
         return new PatternLine(extractColor(response), fadeTime, convertToPositiveInt(response[7]));
     }
 
     public void playPattern() throws UsbException {
-        device.sendCommand(new PlayPatternCommand());
+        device.execute(new PlayPatternCommand());
     }
 
     public void playPattern(int startingPoint, int endingPoint, int repeat) throws UsbException {
-        device.sendCommand(new PlayPatternCommand(startingPoint, endingPoint, repeat));
+        device.execute(new PlayPatternCommand(startingPoint, endingPoint, repeat));
     }
 
     public void pausePattern() throws UsbException {
-        device.sendCommand(new PausePatternCommand());
+        device.execute(new PausePatternCommand());
     }
 
     public void savePattern() throws UsbException {
-        device.sendCommand(new SavePatternCommand());
+        device.execute(new SavePatternCommand());
     }
 
     private RGBColor extractColor(byte[] response) {

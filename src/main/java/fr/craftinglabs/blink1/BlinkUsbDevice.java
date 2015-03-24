@@ -19,7 +19,7 @@ public class BlinkUsbDevice {
         forceClaim(device.getActiveInterface((byte) 0x00));
     }    
 
-    public void sendCommand(BlinkCommand command) throws UsbException {
+    public void execute(BlinkCommand command) throws UsbException {
         UsbControlIrp irp = new DefaultUsbControlIrp(
                 (byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
                         UsbConst.REQUESTTYPE_RECIPIENT_INTERFACE |
@@ -40,7 +40,7 @@ public class BlinkUsbDevice {
         });
     }
 
-    public byte[] readResponse() throws UsbException {
+    byte[] query() throws UsbException {
         UsbControlIrp irp = new DefaultUsbControlIrp(
                 (byte) (UsbConst.REQUESTTYPE_TYPE_CLASS |
                         UsbConst.REQUESTTYPE_RECIPIENT_INTERFACE |
@@ -54,4 +54,8 @@ public class BlinkUsbDevice {
         
         return irp.getData();
 	}
+
+    public <T> T query(RawResponseInterpreter<T> interpreter) throws UsbException {
+        return interpreter.interpret(query());
+    }
 }

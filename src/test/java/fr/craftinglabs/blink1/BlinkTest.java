@@ -37,7 +37,7 @@ public class BlinkTest {
 
         blink.fadeToColor(new RGBColor(0, 0, 0), 2000);
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -47,7 +47,7 @@ public class BlinkTest {
 
         blink.fadeToColor(new RGBColor(0, 0, 0), 2000, BlinkLed.LED_1);
         
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -57,7 +57,7 @@ public class BlinkTest {
 
         blink.setColor(new RGBColor(0, 0, 0));
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -67,7 +67,7 @@ public class BlinkTest {
 
         blink.playPattern();
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -77,7 +77,7 @@ public class BlinkTest {
 
         blink.pausePattern();
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -88,7 +88,7 @@ public class BlinkTest {
 
         blink.setPatternLine(line);
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -98,7 +98,7 @@ public class BlinkTest {
 
         blink.playPattern(4, 8, 3);
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
@@ -108,36 +108,36 @@ public class BlinkTest {
 
         blink.savePattern();
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
     
     @Test public void
     should_send_read_color_request_when_asked_for_current_color() throws Exception {
         byte[] deviceResponse = new byte[] {0x01, 'r', (byte) 10, (byte) 100, (byte) 200, 0, 0, 0};
-        when(device.readResponse()).thenReturn(deviceResponse);
+        when(device.query()).thenReturn(deviceResponse);
         BlinkCommand expectedCommand = new ReadColorRequest(BlinkLed.LED_1);
 
         blink.readCurrentColor(BlinkLed.LED_1);
 
-        verify(device).sendCommand(commandCaptor.capture());
+        verify(device).execute(commandCaptor.capture());
         assertArrayEquals(expectedCommand.asBytes(), commandCaptor.getValue().asBytes());
     }
 
     @Test public void
     should_read_device_answer_when_asked_for_current_color() throws Exception {
         byte[] deviceResponse = new byte[] {0x01, 'r', (byte) 10, (byte) 100, (byte) 200, 0, 0, 0};
-        when(device.readResponse()).thenReturn(deviceResponse);
+        when(device.query()).thenReturn(deviceResponse);
 
         blink.readCurrentColor(BlinkLed.LED_1);
 
-        verify(device).readResponse();
+        verify(device).query();
     }
     
     @Test public void 
     should_return_color_answered_by_device_when_asked_for_current_color() throws UsbException {
         byte[] deviceResponse = new byte[] {0x01, 'r', (byte) 10, (byte) 100, (byte) 200, 0, 0, 0};
-        when(device.readResponse()).thenReturn(deviceResponse);
+        when(device.query()).thenReturn(deviceResponse);
 
         RGBColor color = blink.readCurrentColor(BlinkLed.LED_1);
 
@@ -151,7 +151,7 @@ public class BlinkTest {
         byte th = (byte) (fadeTime/10 >> 8);
         int position = 1;
         byte[] deviceResponse = new byte[] {0x01, 'R', (byte) 10, (byte) 100, (byte) 200, th, tl, (byte)position};
-        when(device.readResponse()).thenReturn(deviceResponse);
+        when(device.query()).thenReturn(deviceResponse);
 
         PatternLine patternLine = blink.readPatternLineAt(1);
 
